@@ -68,6 +68,7 @@ exports.UpdateTodo = (req, res) => {
   );
 };
 
+// Update Status
 exports.UpdateStatusTodo =(req,res)=>{
   let TodoStatus = req.body["TodoStatus"];
   let _id = req.body["_id"];
@@ -83,6 +84,22 @@ exports.UpdateStatusTodo =(req,res)=>{
       res.status(401).json({ status: "Failed", data: err });
     } else {
       res.status(200).json({ status: "Success", data: data });
+    }
+
+  })
+
+}
+
+// Remove Todo
+
+exports.RemoveTodo =(req,res)=>{
+  let _id = req.body["_id"];
+  TodoListModel.remove({_id:_id},(err,data)=>{
+    if (err) {
+      res.status(401).json({status:"Failed", data:err})
+      
+    } else {
+      res.status(200).json({status:"Success",data:data})
     }
 
   })
