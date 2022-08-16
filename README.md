@@ -1,2 +1,2 @@
 # Todo-application
-Todo application  Complete Prject
+Todo application  Complete Project
