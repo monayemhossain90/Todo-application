@@ -91,7 +91,6 @@ exports.UpdateStatusTodo =(req,res)=>{
 }
 
 // Remove Todo
-
 exports.RemoveTodo =(req,res)=>{
   let _id = req.body["_id"];
   TodoListModel.remove({_id:_id},(err,data)=>{
@@ -104,4 +103,36 @@ exports.RemoveTodo =(req,res)=>{
 
   })
 
+}
+
+// Select Todo by Status
+
+exports.SelectTodoStatus =(req,res)=>{
+  let UserName = req.headers["username"];
+  let TodoStatus = req.body['TodoStatus'];
+
+  TodoListModel.find({UserName:UserName, TodoStatus:TodoStatus},(err,data)=>{
+    if (err) {
+      res.status(401).json({status:"Failed", data:err})
+    } else {
+      res.status(200).json({status:"Success",data:data})
+    }
+  })
+}
+
+// Select Todo by Date
+
+exports.SelectTodoByDate =(req,res)=>{
+  let UserName = req.headers["username"];
+  let FromDate = req.body['FromDate'];
+  let ToDate = req.body["ToDate"];
+
+  TodoListModel.find({UserName:UserName,TodoCreateDate:{$gte:new Date(FromDate),$lte:new Date(ToDate)}},(err,data)=>{
+    if (err) {
+      res.status(401).json({status:"Failed",data:err})
+      
+    } else {
+      res.status(200).json({status:"Success",data:data})
+    }
+  })
 }
